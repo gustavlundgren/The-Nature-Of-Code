@@ -9,6 +9,8 @@ class Mover {
         this.dy
         this.colNum = col
         this.col
+        this.mass = 10
+        this.f = new PVector(0, 0)
     }
 
     update() {
@@ -36,7 +38,9 @@ class Mover {
 
     
     applyForce(forceVec){
-        this.accVec.add(forceVec)
+        this.f.add(forceVec)  
+        this.f.div(this.mass)
+        this.accVec.add(this.f)
     }
 
     draw() {

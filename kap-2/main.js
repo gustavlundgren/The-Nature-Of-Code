@@ -5,7 +5,7 @@ let mouseIsDown = false
 let idTimeout
 
 let mover = new Mover(100, 100, random(0.01, 0.03), random(0.01, 0.03), 3, 3)
-let wind = new PVector(0.5, 0)
+let wind = new PVector(0.1, 0)
 let gravity = new PVector(0, 9.82)
 
 function main() {
@@ -14,8 +14,8 @@ function main() {
     if (mouseIsDown) {
         mover.applyForce(wind)
     }
-        
-
+    
+    
     mover.update()
     mover.edgeCheck()
     mover.draw()
