@@ -10,7 +10,7 @@ class Mover {
         this.colNum = col
         this.col
         this.mass = 1
-        this.gravity = new PVector(0, g)
+        this.gravity = new PVector(0, g / this.mass)
         this.f = new PVector(0, 0)
     }
 
@@ -29,23 +29,6 @@ class Mover {
 
         console.log(this.velVec);
     }
-
-    /*
-    edgeCheck() {
-        if (this.locVec.x > canvas.width - 20 || this.locVec.x < 0) {
-        this.velVec.x = -this.velVec.x
-        this.accVec.x = -this.accVec.x
-        }
-        
-        if (this.locVec.y > canvas.height - 20 || this.locVec.y < 0) {
-            this.locVec.y = 780
-
-            this.velVec.y = -this.velVec.y * 0.92        
-            this.accVec.y = -this.accVec.y
-        }
-    }
-    */
-
     
     applyForce(forceVec){
         this.f.add(forceVec)  
