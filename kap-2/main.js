@@ -21,8 +21,8 @@ function main() {
         mover.velVec.mult(0.9)
     }
 
-    if (mover.locVec.x > canvas.width - 20) {
-        mover.locVec = new PVector(10, mover.locVec.y)
+    if (mover.locVec.x > canvas.width + 20) {
+        mover.locVec = new PVector(0, mover.locVec.y)
         mover.velVec.y = 0
     }
 
