@@ -18,22 +18,26 @@ class Mover {
 
 
         this.velVec.add(this.accVec)
-        // this.velVec.mult(0.96)
+        this.velVec.mult(0.999)
         this.velVec.limit(this.maxSpeed)
 
         
         this.locVec.add(this.velVec)
 
         this.accVec.mult(0)
-        this.accVec.add(this.gravity)
+        this.accVec.add(this.f)
+        console.log(this.f);
+        this.f.mult(0)
+        this.f.add(this.gravity)
+        
 
-        console.log(this.velVec);
+       
+
     }
     
     applyForce(forceVec){
         this.f.add(forceVec)  
         this.f.div(this.mass)
-        this.accVec.add(this.f)
     }
 
     draw() {
