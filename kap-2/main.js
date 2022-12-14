@@ -4,21 +4,30 @@ const ctx = canvas.getContext('2d')
 let mouseIsDown = false
 let idTimeout
 
-let mover = new Mover(100, 100, random(0.01, 0.03), random(0.01, 0.03), 3, 3)
+let mover = new Mover(100, 100, 20, 3, 1)
 let wind = new PVector(0.1, 0)
-let gravity = new PVector(0, 9.82)
+
+let fps = 1
 
 function main() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-
     if (mouseIsDown) {
-        mover.applyForce(wind)
+         mover.applyForce(wind)
     }
     
-    
+    if (mover.locVec.y > canvas.height - 20) {
+        mover.locVec.y = canvas.height - 20
+        mover.velVec.invertY()
+        mover.velVec.mult(0.9)
+    }
+
     mover.update()
-    mover.edgeCheck()
     mover.draw()
+
+    idTimeout = setTimeout(function() {
+        
+    }, 1000 / fps)
+    
     requestAnimationFrame(main)
 }
 

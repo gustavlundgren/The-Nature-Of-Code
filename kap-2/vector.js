@@ -49,6 +49,19 @@ class PVector {
 
     }
 
+    invert() {
+        this.x = -this.x
+        this.y = -this.y
+    }
+
+    invertX() {
+        this.x = -this.x
+    }
+
+    invertY() {
+        this.y = -this.y
+    }
+
     draw(){
         ctx.beginPath()
         ctx.moveTo(canvas.width / 2, canvas.height / 2)
