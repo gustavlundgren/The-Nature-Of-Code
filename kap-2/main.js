@@ -5,7 +5,7 @@ let mouseIsDown = false
 let idTimeout
 
 let mover = new Mover(10, 10, 20, 3, 0.1)
-let wind = new PVector(0.01, 0)
+let wind = new PVector(0.05, 0)
 
 let fps = 1
 
@@ -22,7 +22,7 @@ function main() {
     }
 
     if (mover.locVec.x > canvas.width - 20) {
-        mover.locVec = new PVector(10, 10)
+        mover.locVec = new PVector(10, mover.locVec.y)
         mover.velVec.y = 0
     }
 
