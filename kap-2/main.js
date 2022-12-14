@@ -4,8 +4,8 @@ const ctx = canvas.getContext('2d')
 let mouseIsDown = false
 let idTimeout
 
-let mover = new Mover(100, 100, 20, 3, 1)
-let wind = new PVector(0.1, 0)
+let mover = new Mover(10, 10, 20, 3, 0.1)
+let wind = new PVector(0.01, 0)
 
 let fps = 1
 
@@ -19,6 +19,11 @@ function main() {
         mover.locVec.y = canvas.height - 20
         mover.velVec.invertY()
         mover.velVec.mult(0.9)
+    }
+
+    if (mover.locVec.x > canvas.width - 20) {
+        mover.locVec = new PVector(10, 10)
+        mover.velVec.y = 0
     }
 
     mover.update()
