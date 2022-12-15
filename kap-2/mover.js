@@ -1,10 +1,9 @@
 class Mover {
-    constructor(x, y, maxSpeed, col, mass) {
+    constructor(x, y, col, mass) {
         this.locVec = new PVector(x, y)
         this.velVec = new PVector(0, 0)
         this.accVec = new PVector(0, 0)
         this.dir = new PVector(0, 0)
-        this.maxSpeed = maxSpeed
         this.dx
         this.dy
         this.colNum = col
@@ -16,12 +15,17 @@ class Mover {
     }
 
     update() {
+
+        console.log("loc ", this.locVec.y);
+        console.log("acc ", this.accVec.y);
+        console.log("vel ", this.velVec.y);
+
         this.velVec.add(this.accVec)
         this.locVec.add(this.velVec)
 
         this.accVec.mult(0)
-        this.accVec.add(this.f) 
 
+        this.accVec.add(this.f) 
         this.f.mult(0)
     }
     
@@ -32,11 +36,11 @@ class Mover {
         this.tempF.mult(0)  
     }
 
-    edgeCheck(normalForce, friction) {
+    edgeCheck(normalForce) {
         if (this.locVec.y + this.accVec.y > canvas.height - 100 * this.mass) {
             
             this.tempF.y -= this.velVec.y
-            this.tempF.y *= 0.2
+            this.tempF.y *= 0.3
             this.applyForce(this.tempF)
             this.applyForce(normalForce)
             this.tempF.mult(0)
@@ -47,22 +51,12 @@ class Mover {
 
             this.friction.mult(mu)
             this.friction.mult(norm.y)  
-
-            this.applyForce(this.friction)
-
-
-            /*
-            if (this.velVec.x != 0 /*&&
-                this.velVec.x > 0.01) {
-                console.log(this.dir.x);
-                friction.mult(this.dir.x)
-                this.applyForce(friction)
-
-                if (friction.x > 0) {
-                    friction.mult(-1)                    
-                }
+            
+            if (this.velVec.x > 1e-10) {
+                this.applyForce(this.friction)
+            }else{
+                this.velVec.x = 0
             }
-            */
         }
 
         if (this.locVec.x > canvas.width) {
@@ -91,7 +85,7 @@ class Mover {
                 break
         }
         
-        this.accVec.draw()
+        this.velVec.draw()
 
         ctx.fillStyle = this.col
         ctx.strokeStyle = this.col

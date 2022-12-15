@@ -4,32 +4,27 @@ const ctx = canvas.getContext('2d')
 let mouseIsDown = false
 let idTimeout
 
-let mover = new Mover(0, 0, 20, 3, 1)
-let wind = new PVector(10 / 100, 0)
+let mover = new Mover(0, 0, 3, 1)
+let wind = new PVector(1, 0)
 wind.div(mover.mass)
 
-let gravity = new PVector(0, 9.82 / 100)
+let gravity = new PVector(0, 1)
 gravity.mult(mover.mass)
 
 let norm = new PVector(0,0)
 norm.sub(gravity)
 
-let mu = 0.1
-
+const mu = 0.2
 
 let tempForce = new PVector(0, 0)
 
-let fps = 1
+let fps = 60
 
 function main() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     if (mouseIsDown) {
-         mover.applyForce(wind)
+        mover.applyForce(wind)
     }
-
-    console.log("loc ", mover.locVec.x);
-    console.log("vel ", mover.velVec.x);
-    console.log("acc ", mover.accVec.x);
 
     mover.edgeCheck(norm)
     mover.applyForce(gravity)
@@ -37,10 +32,9 @@ function main() {
     mover.draw()
 
     idTimeout = setTimeout(function() {
-        
     }, 1000 / fps)
-    
-    requestAnimationFrame(main)
+
+    requestAnimationFrame(main) 
 }
 
 main()

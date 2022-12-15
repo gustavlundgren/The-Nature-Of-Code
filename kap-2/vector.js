@@ -64,8 +64,11 @@ class PVector {
 
     draw(){
         ctx.beginPath()
+        ctx.arc(canvas.width / 2, canvas.height / 2, 2, 0, 2 * Math.PI)
+        ctx.fill()
+        ctx.beginPath()
         ctx.moveTo(canvas.width / 2, canvas.height / 2)
-        ctx.lineTo(canvas.width / 2 + this.x * 1000, canvas.height / 2 + this.y * 1000)
+        ctx.lineTo(canvas.width / 2 + this.x * 10, canvas.height / 2 + this.y * 10)
         ctx.stroke()
     }
 }
