@@ -16,18 +16,18 @@ class Mover {
     }
 
     update() {
-        this.velVec.add(this.accVec)
-        this.locVec.add(this.velVec)
-
         this.dir.x = this.velVec.x
         this.dir.norm()
 
-        // console.log(this.accVec.y);
+        this.velVec.add(this.accVec)
+        this.locVec.add(this.velVec)
+
+        
 
         this.accVec.mult(0)
         this.accVec.add(this.f) 
-        this.f.mult(0)
 
+        this.f.mult(0)
     }
     
     applyForce(forceVec){
@@ -40,19 +40,27 @@ class Mover {
     edgeCheck(normalForce, friction) {
         if (this.locVec.y + this.accVec.y > canvas.height - 100 * this.mass) {
             
-            this.tempF.sub(this.velVec)
-            this.tempF.div(10)
-            // console.log(this.tempF);
-
+            this.tempF.y -= this.velVec.y
+            this.tempF.y /= 10
             this.applyForce(this.tempF)
             this.applyForce(normalForce)
             this.tempF.mult(0)
             this.velVec.y = 0
-            
-            if (this.velVec.x != 0) {
-                friction.mult(-this.dir.x)
+
+            if (this.velVec.x != 0 && this.velVec.x > 0.01) {
+                console.log(this.dir.x);
+                friction.mult(this.dir.x)
                 this.applyForce(friction)
+
+                if (friction.x > 0) {
+                    friction.mult(-1)                    
+                }
+                console.log(friction);
             }
+        }
+
+        if (this.locVec.x > canvas.width) {
+            this.locVec.x = - 100 * this.mass
         }
     }
 
@@ -77,7 +85,7 @@ class Mover {
                 break
         }
         
-        this.velVec.draw()
+        this.accVec.draw()
 
         ctx.fillStyle = this.col
         ctx.strokeStyle = this.col

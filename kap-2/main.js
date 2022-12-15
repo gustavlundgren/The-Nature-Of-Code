@@ -28,8 +28,7 @@ function main() {
          mover.applyForce(wind)
     }
 
-    console.log(mover.dir.x);
-
+    // console.log(mover.accVec.x);
 
     mover.edgeCheck(norm, friction)
     mover.applyForce(gravity)
@@ -53,11 +52,6 @@ function random(min, max) {
 
 window.addEventListener('mousedown', function() {
   mouseIsDown = true
-  idTimeout = setTimeout(function() {
-    if(mouseIsDown) {
-      // mouse was held down for > 2 seconds
-    }
-  }, 2000)
 })
 
 window.addEventListener('mouseup', function() {
