@@ -12,17 +12,12 @@ class Mover {
         this.mass = mass
         this.f = new PVector(0, 0)
         this.tempF = new PVector(0, 0)
-        this.dir = new PVector(0, 0)
+        this.friction = new PVector(0, 0) 
     }
 
     update() {
-        this.dir.x = this.velVec.x
-        this.dir.norm()
-
         this.velVec.add(this.accVec)
         this.locVec.add(this.velVec)
-
-        
 
         this.accVec.mult(0)
         this.accVec.add(this.f) 
@@ -41,13 +36,24 @@ class Mover {
         if (this.locVec.y + this.accVec.y > canvas.height - 100 * this.mass) {
             
             this.tempF.y -= this.velVec.y
-            this.tempF.y /= 10
+            this.tempF.y *= 0.2
             this.applyForce(this.tempF)
             this.applyForce(normalForce)
             this.tempF.mult(0)
             this.velVec.y = 0
 
-            if (this.velVec.x != 0 && this.velVec.x > 0.01) {
+            this.friction.add(this.velVec)
+            this.friction.norm()
+
+            this.friction.mult(mu)
+            this.friction.mult(norm.y)  
+
+            this.applyForce(this.friction)
+
+
+            /*
+            if (this.velVec.x != 0 /*&&
+                this.velVec.x > 0.01) {
                 console.log(this.dir.x);
                 friction.mult(this.dir.x)
                 this.applyForce(friction)
@@ -55,8 +61,8 @@ class Mover {
                 if (friction.x > 0) {
                     friction.mult(-1)                    
                 }
-                console.log(friction);
             }
+            */
         }
 
         if (this.locVec.x > canvas.width) {

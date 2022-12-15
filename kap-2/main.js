@@ -14,9 +14,8 @@ gravity.mult(mover.mass)
 let norm = new PVector(0,0)
 norm.sub(gravity)
 
-let friction = new PVector(0, 0)
-const mu = 0.5
-friction.x = mu * norm.y
+let mu = 0.1
+
 
 let tempForce = new PVector(0, 0)
 
@@ -28,9 +27,11 @@ function main() {
          mover.applyForce(wind)
     }
 
-    // console.log(mover.accVec.x);
+    console.log("loc ", mover.locVec.x);
+    console.log("vel ", mover.velVec.x);
+    console.log("acc ", mover.accVec.x);
 
-    mover.edgeCheck(norm, friction)
+    mover.edgeCheck(norm)
     mover.applyForce(gravity)
     mover.update()
     mover.draw()
